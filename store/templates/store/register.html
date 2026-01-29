@@ -1,0 +1,47 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Register - Boomerang Digital Solutions{% endblock %}
+
+{% block content %}
+<div class="container py-12">
+    <div
+        style="max-width: 480px; margin: 0 auto; background: var(--white); padding: var(--space-8); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); border: 1px solid var(--light-grey);">
+        <h1 class="text-center mb-6">Create Account</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="mb-4">
+                <label for="{{ field.id_for_label }}" class="block mb-2 font-medium" style="color: var(--charcoal);">
+                    {{ field.label }}
+                </label>
+                <input type="{{ field.field.widget.input_type|default:'text' }}" name="{{ field.name }}"
+                    id="{{ field.id_for_label }}" class="form-input"
+                    style="width: 100%; padding: 12px; border: 1px solid var(--border-grey); border-radius: var(--radius-md);"
+                    require>
+                {% if field.errors %}
+                <div class="text-sm text-red-600 mt-1">
+                    {{ field.errors.0 }}
+                </div>
+                {% endif %}
+                {% if field.help_text %}
+                <p class="text-xs text-gray-500 mt-1">{{ field.help_text }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary w-full"
+                style="width: 100%; padding: 12px; justify-content: center; margin-top: var(--space-2);">
+                Register
+            </button>
+        </form>
+
+        <p class="text-center mt-6 text-sm" style="color: var(--medium-grey);">
+            Already have an account? <a href="{% url 'login' %}"
+                style="color: var(--primary-blue); font-weight: 600;">Log in</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

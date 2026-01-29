@@ -1,0 +1,19 @@
+{
+    "hosting": {
+        "public": "staticfiles",
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ],
+        "rewrites": [
+            {
+                "source": "**",
+                "run": {
+                    "serviceId": "django-app",
+                    "region": "us-central1"
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,53 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Order Confirmed - Boomerang Digital Solutions{% endblock %}
+
+{% block content %}
+<div class="container py-12 text-center">
+    <div
+        style="max-width: 600px; margin: 0 auto; background: var(--white); padding: var(--space-8); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg);">
+        <div style="font-size: 64px; margin-bottom: var(--space-4);">🎉</div>
+        <h1 class="mb-4">Order Received!</h1>
+        <p style="font-size: var(--text-lg); color: var(--dark-grey); margin-bottom: var(--space-6);">
+            Thank you, {{ order.customer_name }}. Your order number is <strong>{{ order.order_number }}</strong>.
+        </p>
+
+        <div
+            style="background: var(--off-white); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-8); text-align: left;">
+            <h3 style="margin-bottom: var(--space-4);">What happens next?</h3>
+            <ul style="list-style-type: none; gap: var(--space-3); display: flex; flex-direction: column;">
+                <li style="display: flex; gap: var(--space-3); align-items: flex-start;">
+                    <span>1️⃣</span>
+                    <span>We have received your order details.</span>
+                </li>
+                <li style="display: flex; gap: var(--space-3); align-items: flex-start;">
+                    <span>2️⃣</span>
+                    <span>Our team will contact you shortly via <strong>WhatsApp</strong> or <strong>Phone</strong> to
+                        confirm availability and delivery.</span>
+                </li>
+                {% if order.payment_method == 'mpesa' %}
+                <li style="display: flex; gap: var(--space-3); align-items: flex-start;">
+                    <span>3️⃣</span>
+                    <span>You selected <strong>M-Pesa</strong>. Payment instructions will be shared upon
+                        confirmation.</span>
+                </li>
+                {% elif order.payment_method == 'cod' %}
+                <li style="display: flex; gap: var(--space-3); align-items: flex-start;">
+                    <span>3️⃣</span>
+                    <span>You selected <strong>Cash on Delivery</strong>. Please have the amount ready upon
+                        delivery.</span>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <a href="https://wa.me/{{ whatsapp_number }}?text=Hello%20BDS!%20My%20order%20is%20{{ order.order_number }}."
+            class="btn btn-primary btn-lg" target="_blank" style="margin-bottom: var(--space-4); width: 100%;">
+            💬 Chat with us on WhatsApp
+        </a>
+
+        <a href="{% url 'home' %}" class="btn btn-outline" style="width: 100%;">Continue Shopping</a>
+    </div>
+</div>
+{% endblock %}

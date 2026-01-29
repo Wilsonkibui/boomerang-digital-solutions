@@ -1,0 +1,406 @@
+/**
+ * Boomerang Digital Solutions - Responsive Styles
+ * Mobile-first responsive design for phones, tablets, and all devices
+ */
+
+/* ===================================
+   MOBILE FIRST APPROACH
+   Base styles are mobile, then scale up
+   =================================== */
+
+/* ===================================
+   TABLET (768px and up)
+   =================================== */
+
+@media (max-width: 1024px) {
+
+    /* Container adjustments */
+    .container {
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+    }
+
+    /* Grid adjustments */
+    .grid-cols-4 {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    .grid-cols-3 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* ===================================
+   MOBILE (768px and below)
+   =================================== */
+
+@media (max-width: 768px) {
+
+    /* Typography scaling */
+    :root {
+        --text-xs: 0.7rem;
+        --text-sm: 0.8rem;
+        --text-base: 0.9rem;
+        --text-lg: 1.1rem;
+        --text-xl: 1.25rem;
+        --text-2xl: 1.5rem;
+        --text-3xl: 1.875rem;
+        --text-4xl: 2.25rem;
+    }
+
+    /* Container */
+    .container {
+        padding-left: var(--space-3);
+        padding-right: var(--space-3);
+    }
+
+    /* Navigation */
+    .nav-container {
+        padding: var(--space-3) 0 !important;
+    }
+
+    .nav-logo-img {
+        height: 48px !important;
+    }
+
+    .nav-logo-link {
+        font-size: var(--text-base);
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: var(--white);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: var(--space-8) var(--space-6);
+        box-shadow: var(--shadow-xl);
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: var(--z-modal);
+        gap: var(--space-4);
+    }
+
+    .nav-menu.open {
+        right: 0;
+    }
+
+    .nav-search {
+        order: -1;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: var(--space-4);
+    }
+
+    .mobile-menu-toggle {
+        display: flex !important;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: var(--space-2);
+    }
+
+    .mobile-menu-toggle span {
+        width: 24px;
+        height: 2px;
+        background: var(--charcoal);
+        transition: all 0.3s;
+    }
+
+    /* Hide desktop nav items on mobile */
+    .nav-actions .cart-icon {
+        margin-left: auto;
+    }
+
+    /* Hero Section */
+    .hero {
+        padding: var(--space-6) 0 !important;
+    }
+
+    .hero>.container>div {
+        grid-template-columns: 1fr !important;
+        gap: var(--space-6) !important;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+    }
+
+    .hero p {
+        font-size: var(--text-base) !important;
+    }
+
+    .hero img {
+        max-width: 50%;
+        max-height: 250px;
+        margin: 0 auto;
+        object-fit: contain;
+    }
+
+    .hero .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .hero>.container>div>div:first-child {
+        order: 2;
+    }
+
+    .hero>.container>div>div:last-child {
+        order: 1;
+    }
+
+    /* Grid Layouts */
+    .grid-cols-4,
+    .grid-cols-3,
+    .grid-cols-2 {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Product Cards */
+    .product-card {
+        max-width: 100%;
+    }
+
+    /* Category Cards */
+    .category-card {
+        padding: var(--space-4);
+    }
+
+    .category-icon {
+        font-size: 2rem;
+    }
+
+    /* Trust Section */
+    .trust-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--space-4) !important;
+    }
+
+    /* Footer */
+    .footer-content {
+        grid-template-columns: 1fr !important;
+        gap: var(--space-6) !important;
+    }
+
+    /* Forms */
+    .form-group {
+        margin-bottom: var(--space-4);
+    }
+
+    /* Buttons */
+    .btn {
+        padding: var(--space-3) var(--space-4);
+        font-size: var(--text-sm);
+    }
+
+    .btn-lg {
+        padding: var(--space-4) var(--space-6);
+        font-size: var(--text-base);
+    }
+
+    /* Search Suggestions */
+    .search-suggestions {
+        max-height: 300px;
+    }
+
+    .suggestion-item {
+        padding: var(--space-2);
+    }
+
+    .suggestion-image {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* WhatsApp Float */
+    .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: var(--space-4);
+        right: var(--space-4);
+    }
+
+    /* Spacing utilities */
+    .py-16 {
+        padding-top: var(--space-8) !important;
+        padding-bottom: var(--space-8) !important;
+    }
+
+    .mb-12 {
+        margin-bottom: var(--space-6) !important;
+    }
+
+    /* Admin Layout */
+    .admin-layout {
+        grid-template-columns: 1fr !important;
+    }
+
+    .admin-sidebar {
+        display: none;
+    }
+
+    /* Product Detail */
+    .product-detail-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Checkout */
+    .checkout-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* ===================================
+   SMALL MOBILE (480px and below)
+   =================================== */
+
+@media (max-width: 480px) {
+
+    /* Even smaller typography */
+    :root {
+        --text-xs: 0.65rem;
+        --text-sm: 0.75rem;
+        --text-base: 0.85rem;
+        --text-lg: 1rem;
+        --text-xl: 1.125rem;
+        --text-2xl: 1.375rem;
+    }
+
+    /* Container */
+    .container {
+        padding-left: var(--space-2);
+        padding-right: var(--space-2);
+    }
+
+    /* Navigation */
+    .nav-logo-img {
+        height: 40px !important;
+    }
+
+    .nav-menu {
+        width: 100%;
+        right: -100%;
+    }
+
+    /* Hero */
+    .hero h1 {
+        font-size: 1.75rem !important;
+    }
+
+    /* Buttons */
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Product Cards */
+    .product-card-content {
+        padding: var(--space-3);
+    }
+
+    /* Forms - Stack all form grids */
+    .form-group>div[style*="grid"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Search bar */
+    .search-input {
+        font-size: var(--text-sm);
+        padding: var(--space-2) var(--space-3);
+        padding-left: var(--space-8);
+    }
+}
+
+/* ===================================
+   LANDSCAPE MOBILE
+   =================================== */
+
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero {
+        padding: var(--space-4) 0 !important;
+    }
+
+    .hero h1 {
+        font-size: 1.5rem !important;
+    }
+
+    .nav-menu {
+        padding: var(--space-4);
+    }
+}
+
+/* ===================================
+   TABLET LANDSCAPE (1024px and below)
+   =================================== */
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .grid-cols-4 {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .hero>.container>div {
+        gap: var(--space-8) !important;
+    }
+}
+
+/* ===================================
+   TOUCH DEVICE OPTIMIZATIONS
+   =================================== */
+
+@media (hover: none) and (pointer: coarse) {
+
+    /* Larger touch targets */
+    .btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .nav-link {
+        padding: var(--space-3) var(--space-2);
+    }
+
+    /* Remove hover effects on touch */
+    .product-card:hover {
+        transform: none;
+    }
+
+    .lift-on-hover:hover {
+        transform: none;
+    }
+
+    /* Tap highlight */
+    * {
+        -webkit-tap-highlight-color: rgba(220, 38, 38, 0.1);
+    }
+}
+
+/* ===================================
+   PRINT STYLES
+   =================================== */
+
+@media print {
+
+    .nav-header,
+    .footer,
+    .whatsapp-float,
+    .mobile-menu-toggle,
+    .btn {
+        display: none !important;
+    }
+
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+
+    .container {
+        max-width: 100%;
+    }
+}

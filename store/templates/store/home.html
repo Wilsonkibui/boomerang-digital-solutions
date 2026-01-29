@@ -1,0 +1,169 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero"
+    style="background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%); padding: var(--space-8) 0; overflow: hidden;">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); align-items: center;">
+            <!-- Left: Text Content -->
+            <div class="hero-fade-in" style="max-width: 560px;">
+                <h1
+                    style="font-size: 3.5rem; line-height: 1.2; margin-bottom: var(--space-6); font-weight: 700; color: var(--charcoal);">
+                    {{ settings.hero_headline|default:'Premium Tech. Trusted Deals.' }}
+                </h1>
+                <p
+                    style="font-size: var(--text-xl); color: var(--dark-grey); margin-bottom: var(--space-8); line-height: 1.6;">
+                    {{ settings.hero_subtext|default:'Phones, laptops & storage — curated for Kenya.' }}
+                </p>
+
+                <div style="display: flex; gap: var(--space-4); align-items: center;">
+                    <a href="https://wa.me/{{ settings.whatsapp_number|default:'254701511606' }}?text=Hello%20BDS!%20I%27d%20like%20to%20inquire%20about%20your%20products."
+                        class="btn btn-primary btn-lg btn-ripple" target="_blank"
+                        style="padding: 18px 36px; font-size: var(--text-lg); box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);">
+                        💬 WhatsApp Us
+                    </a>
+                    <a href="{% url 'shop' %}" class="btn btn-outline btn-lg"
+                        style="padding: 18px 36px; font-size: var(--text-lg);">
+                        Browse Shop
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right: Laptop Image -->
+            <div
+                style="position: relative; display: flex; justify-content: center; align-items: center; margin-top: -80px;">
+                <img src="{% static 'store/assets/images/hero-laptop.png' %}" alt="Premium Laptop"
+                    style="max-width: 100%; height: auto; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15)); transform: perspective(1000px) rotateY(-5deg);">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Categories -->
+<section class="py-16 bg-white">
+    <div class="container">
+        <h2 class="text-center mb-12">Shop by Category</h2>
+
+        <div class="grid grid-cols-4 gap-6">
+            {% for category in categories %}
+            <a href="{% url 'shop' %}?category={{ category.slug }}" class="category-card animate-on-scroll">
+                <div class="category-icon">
+                    {% if category.slug == 'phones' %}📱
+                    {% elif category.slug == 'laptops' %}💻
+                    {% elif category.slug == 'storage' %}💾
+                    {% elif category.slug == 'accessories' %}🎧
+                    {% else %}📦{% endif %}
+                </div>
+                <div class="category-name">{{ category.name }}</div>
+                <div class="category-count">{{ category.products.count }} products</div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Featured Products -->
+<section class="py-16 bg-off-white">
+    <div class="container">
+        <div
+            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-12);">
+            <h2>Featured Products</h2>
+            <a href="{% url 'shop' %}" class="btn btn-outline">View All</a>
+        </div>
+
+        <div class="grid grid-cols-4 gap-6">
+            {% for product in featured_products %}
+            <a href="{% url 'product_detail' product.slug %}" class="product-card animate-on-scroll lift-on-hover">
+                <div class="product-card-image">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                    {% else %}
+                    <img src="{% static 'store/assets/images/placeholder.png' %}" alt="{{ product.name }}">
+                    {% endif %}
+
+                    <span class="product-badge badge-in-stock">
+                        {{ product.get_stock_status_display }}
+                    </span>
+                </div>
+
+                <div class="product-card-content">
+                    <!-- Rating stars -->
+                    <div class="product-rating">
+                        <div class="product-stars">
+                            ★★★★☆
+                        </div>
+                        <span class="product-review-count">(24)</span>
+                    </div>
+
+                    <h3 class="product-name">{{ product.name }}</h3>
+
+                    <!-- Specs summary (basic handling) -->
+                    {% if product.description %}
+                    <div class="product-brand">{{ product.description|truncatewords:5 }}</div>
+                    {% endif %}
+
+                    <div class="product-price">KES {{ product.price }}</div>
+
+                    <button class="product-add-btn">
+                        🛒 Add
+                    </button>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Trust Section -->
+<section class="trust-section">
+    <div class="container">
+        <h2 class="text-center mb-12">Why Choose BDS?</h2>
+
+        <div class="trust-grid">
+            <div class="trust-badge animate-on-scroll">
+                <div class="trust-icon">✓</div>
+                <h3 class="trust-title">Quality Checked Devices</h3>
+                <p class="trust-desc">Every product is thoroughly inspected before sale</p>
+            </div>
+
+            <div class="trust-badge">
+                <div class="trust-icon">🛡️</div>
+                <h3 class="trust-title">Warranty Available</h3>
+                <p class="trust-desc">Peace of mind with our warranty coverage</p>
+            </div>
+
+            <div class="trust-badge">
+                <div class="trust-icon">🚚</div>
+                <h3 class="trust-title">Fast Nairobi Delivery</h3>
+                <p class="trust-desc">Quick and reliable delivery across Nairobi</p>
+            </div>
+
+            <div class="trust-badge">
+                <div class="trust-icon">💬</div>
+                <h3 class="trust-title">WhatsApp Support</h3>
+                <p class="trust-desc">Instant customer support via WhatsApp</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Brand Logos -->
+<section class="py-16 bg-white">
+    <div class="container">
+        <h3 class="text-center mb-8" style="color: var(--medium-grey); font-weight: var(--font-weight-medium);">
+            Trusted Brands
+        </h3>
+
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--space-8);">
+            {% for brand in brands %}
+            <div
+                style="font-size: var(--text-xl); font-weight: var(--font-weight-semibold); color: var(--medium-grey); opacity: 0.6; transition: opacity var(--transition-fast);">
+                {{ brand.name }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

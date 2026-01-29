@@ -1,0 +1,120 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Get In Touch - Boomerang Digital Solutions{% endblock %}
+
+{% block content %}
+<div class="container-narrow py-16">
+    <h1 style="text-align: center; margin-bottom: var(--space-12);">Get In Touch</h1>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); margin-bottom: var(--space-16);">
+        <!-- Contact Information -->
+        <div>
+            <h2 style="margin-bottom: var(--space-6);">Contact Information</h2>
+
+            <!-- WhatsApp (Kept separate for prominence) -->
+            <div
+                style="background: var(--off-white); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-6);">
+                <div style="margin-bottom: var(--space-4);">
+                    <div style="font-size: 32px; margin-bottom: var(--space-2);">💬</div>
+                    <h3 style="margin-bottom: var(--space-2);">WhatsApp</h3>
+                    <p style="color: var(--dark-grey);">Fastest way to reach us!</p>
+                    <a href="https://wa.me/{{ whatsapp_number }}?text=Hello%20BDS!" target="_blank"
+                        class="btn btn-accent" style="margin-top: var(--space-3);">
+                        Chat on WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Combined Contact Details -->
+            <div style="background: var(--off-white); padding: var(--space-6); border-radius: var(--radius-lg);">
+                <!-- Phone -->
+                <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-6);">
+                    <div style="font-size: 24px;">📱</div>
+                    <div>
+                        <h3 style="margin-bottom: var(--space-1); font-size: var(--text-lg);">Phone</h3>
+                        <p style="color: var(--dark-grey);">+{{ whatsapp_number }}</p>
+                    </div>
+                </div>
+
+                <!-- Location -->
+                <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-6);">
+                    <div style="font-size: 24px;">📍</div>
+                    <div>
+                        <h3 style="margin-bottom: var(--space-1); font-size: var(--text-lg);">Location</h3>
+                        <p style="color: var(--dark-grey);">
+                            Nairobi, Kenya<br>
+                            CBD Area
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Business Hours -->
+                <div style="display: flex; gap: var(--space-4);">
+                    <div style="font-size: 24px;">⏰</div>
+                    <div>
+                        <h3 style="margin-bottom: var(--space-1); font-size: var(--text-lg);">Business Hours</h3>
+                        <p style="color: var(--dark-grey);">
+                            Monday - Saturday: 9:00 AM - 6:00 PM<br>
+                            Sunday: Closed
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Contact Form (For future email integration) -->
+        <div>
+            <h2 style="margin-bottom: var(--space-6);">Send us a Message</h2>
+
+            <div
+                style="background: var(--primary-blue-light); padding: var(--space-6); border-radius: var(--radius-lg); margin-bottom: var(--space-6);">
+                <h4 style="color: var(--primary-blue); margin-bottom: var(--space-3);">💬 Prefer WhatsApp?</h4>
+                <p style="color: var(--dark-grey); margin-bottom: var(--space-4);">
+                    For the fastest response, send us a message on WhatsApp. We typically reply within minutes during
+                    business hours!
+                </p>
+                <a href="https://wa.me/{{ whatsapp_number }}?text=Hello%20BDS!%20I%20have%20a%20question..."
+                    target="_blank" class="btn btn-accent btn-lg" style="width: 100%;">
+                    Start WhatsApp Chat
+                </a>
+            </div>
+
+            <div style="background: var(--off-white); padding: var(--space-8); border-radius: var(--radius-lg);">
+                <h3 style="margin-bottom: var(--space-4);">Common Questions</h3>
+
+                <div style="margin-bottom: var(--space-4);">
+                    <strong>Do you deliver nationwide?</strong>
+                    <p style="color: var(--dark-grey); margin-top: var(--space-2);">
+                        We offer fast delivery across Nairobi and can arrange shipping nationwide. Contact us for
+                        details!
+                    </p>
+                </div>
+
+                <div style="margin-bottom: var(--space-4);">
+                    <strong>What payment methods do you accept?</strong>
+                    <p style="color: var(--dark-grey); margin-top: var(--space-2);">
+                        M-Pesa, bank transfer, and cash on delivery for verified orders.
+                    </p>
+                </div>
+
+                <div>
+                    <strong>Do you offer warranties?</strong>
+                    <p style="color: var(--dark-grey); margin-top: var(--space-2);">
+                        Yes! All our products come with warranty coverage.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div
+        style="text-align: center; padding: var(--space-12); background: linear-gradient(135deg, var(--primary-blue), var(--primary-blue-hover)); border-radius: var(--radius-xl); color: var(--white);">
+        <h2 style="color: var(--white); margin-bottom: var(--space-4);">Ready to Buy?</h2>
+        <p style="font-size: var(--text-lg); opacity: 0.9; margin-bottom: var(--space-6);">
+            Browse our collection of premium tech products
+        </p>
+        <a href="{% url 'shop' %}" class="btn btn-secondary btn-lg">Shop Now</a>
+    </div>
+</div>
+{% endblock %}

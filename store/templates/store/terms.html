@@ -1,0 +1,41 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Terms & Conditions - Boomerang Digital Solutions{% endblock %}
+
+{% block content %}
+<div class="container py-12">
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h1 class="mb-8">Terms & Conditions</h1>
+
+        <div class="prose" style="line-height: 1.8; color: var(--dark-grey);">
+            <p>Last updated: {% now "F j, Y" %}</p>
+
+            <h3 class="mt-8 mb-4">1. Introduction</h3>
+            <p>Welcome to Boomerang Digital Solutions. By accessing this website and purchasing our products, you agree
+                to be bound by these Terms and Conditions.</p>
+
+            <h3 class="mt-8 mb-4">2. Products and Pricing</h3>
+            <p>We make every effort to display the colors, features, specifications, and details of the products
+                available on the Site as accurately as possible. However, we do not guarantee that the colors, features,
+                specifications, and details of the products will be accurate, complete, reliable, current, or free of
+                other errors.</p>
+            <p>All prices are subject to change without notice.</p>
+
+            <h3 class="mt-8 mb-4">3. Orders and Payment</h3>
+            <p>We reserve the right to refuse any order placed through the Site. We may, in our sole discretion, limit
+                or cancel quantities purchased per person, per household, or per order.</p>
+
+            <h3 class="mt-8 mb-4">4. Delivery</h3>
+            <p>Delivery times are estimates and start from the date of shipping. We are not responsible for delays
+                caused by the courier service or customs clearance processes.</p>
+
+            <h3 class="mt-8 mb-4">5. Returns and Refunds</h3>
+            <p>Please review our separate Warranty & Returns Policy for information on returns and refunds.</p>
+
+            <h3 class="mt-8 mb-4">6. Contact Information</h3>
+            <p>Questions about the Terms & Conditions should be sent to us at boomerangdigitalsolutions@gmail.com.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

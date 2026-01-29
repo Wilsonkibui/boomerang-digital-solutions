@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{% block title %}Boomerang Digital Solutions{% endblock %}</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="{% block description %}Premium Tech. Trusted Deals. - Shop phones, laptops, hard drives, and tech accessories in Kenya.{% endblock %}">
+    <meta name="keywords" content="electronics, phones, laptops, Kenya, Nairobi, tech accessories">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static 'store/assets/css/design-system.css' %}">
+    <link rel="stylesheet" href="{% static 'store/assets/css/components.css' %}">
+    <link rel="stylesheet" href="{% static 'store/assets/css/animations.css' %}">
+    <link rel="stylesheet" href="{% static 'store/assets/css/responsive.css' %}">
+
+    <!-- Favicon (placeholder) -->
+    <link rel="icon" type="image/png" href="{% static 'store/assets/images/favicon.png' %}">
+</head>
+
+<body>
+    <!-- Navigation Header -->
+    <nav class="nav-header" id="mainNav">
+        <div class="container">
+            <div class="nav-container">
+                <!-- Logo -->
+                <a href="{% url 'home' %}" class="nav-logo-link">
+                    <img src="{% static 'store/assets/images/logo.png' %}" alt="Boomerang" class="nav-logo-img"
+                        onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                    <span class="nav-logo-text">Boomerang Digital Solutions</span>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="nav-menu" id="navMenu">
+                    <a href="{% url 'home' %}"
+                        class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+                    <a href="{% url 'shop' %}"
+                        class="nav-link {% if request.resolver_match.url_name == 'shop' %}active{% endif %}">Shop</a>
+                    <a href="{% url 'about' %}"
+                        class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}">About</a>
+                    <a href="{% url 'contact' %}"
+                        class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="nav-search">
+                    <form action="#" method="GET" class="search-bar"
+                        style="position: relative; width: 100%; max-width: 400px;">
+                        <input type="search" name="q" class="search-input" placeholder="Search products..."
+                            value="{{ request.GET.q|default:'' }}"
+                            style="width: 100%; padding: 10px 40px 10px 16px; border-radius: 99px; border: 1px solid var(--border-grey); background: var(--off-white); font-size: 14px; transition: border-color 0.2s;">
+                        <button type="submit" class="search-icon"
+                            style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--medium-grey);">
+                            🔍
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Cart Icon -->
+                <div class="nav-actions">
+                    <!-- Auth Hidden by Request -->
+                    <!--
+                    {% if user.is_authenticated %}
+                    <a href="#" class="nav-link" style="font-size: var(--text-sm);">Hi, {{ user.username }}</a>
+                    <a href="{% url 'logout' %}" class="btn btn-outline btn-sm">Logout</a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="nav-link">Log In</a>
+                    <a href="{% url 'register' %}" class="btn btn-primary btn-sm">Register</a>
+                    {% endif %}
+                    -->
+
+                    <a href="{% url 'cart' %}" class="cart-icon">
+                        🛒
+                        {% if cart_count > 0 %}
+                        <span class="cart-count">{{ cart_count }}</span>
+                        {% endif %}
+                    </a>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}" style="margin: var(--space-4) auto; max-width: 1280px;">
+        {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Company Info -->
+                <div class="footer-section">
+                    <h3>Boomerang Digital Solutions</h3>
+                    <p>Premium Tech. Trusted Deals.</p>
+                    <p style="margin-top: var(--space-4);">Quality electronics and tech accessories for Kenya's digital
+                        future.</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <div class="footer-links">
+                        <a href="{% url 'shop' %}">Shop All</a>
+                        <a href="{% url 'shop' %}?category=phones">Phones</a>
+                        <a href="{% url 'shop' %}?category=laptops">Laptops</a>
+                        <a href="{% url 'shop' %}?category=storage">Storage</a>
+                        <a href="{% url 'shop' %}?category=accessories">Accessories</a>
+                    </div>
+                </div>
+
+                <!-- Customer Service -->
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <div class="footer-links">
+                        <a href="{% url 'about' %}">About Us</a>
+                        <a href="{% url 'contact' %}">Contact</a>
+                        <a href="{% url 'warranty' %}">Warranty & Returns</a>
+                        <a href="{% url 'privacy' %}">Privacy Policy</a>
+                        <a href="{% url 'terms' %}">Terms & Conditions</a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Get In Touch</h3>
+                    <p>📱 0701511606</p>
+                    <p>📧 boomerangdigitalsolutions@gmail.com</p>
+                    <p>💬 +254701511606</p>
+                    <p>📍 Nairobi, Kenya</p>
+                    <p>⏰ Mon-Sat: 9AM - 6PM</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; {% now "Y" %} Boomerang Digital Solutions. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/254701511606?text=Hello%20BDS!%20I%20have%20a%20question..." class="whatsapp-float"
+        target="_blank" rel="noopener" aria-label="Chat on WhatsApp"></a>
+
+    <!-- Scripts -->
+    <script src="{% static 'store/assets/js/main.js' %}"></script>
+</body>
+
+</html>

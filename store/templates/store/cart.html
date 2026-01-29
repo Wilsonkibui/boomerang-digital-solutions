@@ -1,0 +1,129 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Shopping Cart - Boomerang Digital Solutions{% endblock %}
+
+{% block content %}
+<div class="container py-8">
+    <h1 style="margin-bottom: var(--space-8);">Shopping Cart</h1>
+
+    {% if cart_items %}
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-8);">
+        <!-- Cart Items -->
+        <div>
+            {% for item in cart_items %}
+            <div
+                style="background: var(--white); border: 1px solid var(--light-grey); border-radius: var(--radius-lg); padding: var(--space-6); margin-bottom: var(--space-4); display: flex; gap: var(--space-6);">
+                <!-- Product Image -->
+                <a href="{% url 'product_detail' item.product.slug %}" style="flex-shrink: 0;">
+                    {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}"
+                        style="width: 120px; height: 120px; object-fit: cover; border-radius: var(--radius-md);">
+                    {% else %}
+                    <div
+                        style="width: 120px; height: 120px; background: var(--off-white); border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; color: var(--medium-grey);">
+                        No Image
+                    </div>
+                    {% endif %}
+                </a>
+
+                <!-- Product Info -->
+                <div style="flex: 1;">
+                    <a href="{% url 'product_detail' item.product.slug %}"
+                        style="display: block; margin-bottom: var(--space-2);">
+                        <h3 style="font-size: var(--text-xl); margin-bottom: var(--space-1);">
+                            {{ item.product.name }}
+                        </h3>
+                    </a>
+                    <div style="color: var(--medium-grey); margin-bottom: var(--space-2);">
+                        {{ item.product.brand.name }} • {{ item.product.category.name }}
+                    </div>
+                    <div
+                        style="font-size: var(--text-2xl); font-weight: var(--font-weight-bold); color: var(--primary-blue); margin-bottom: var(--space-4);">
+                        KES {{ item.product.price }}
+                    </div>
+
+                    <!-- Quantity Update -->
+                    <div style="display: flex; gap: var(--space-4); align-items: center;">
+                        <form method="POST" action="{% url 'cart' %}"
+                            style="display: flex; align-items: center; gap: var(--space-2);">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="update">
+                            <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                            <label for="qty-{{ item.product.id }}"
+                                style="font-weight: var(--font-weight-medium);">Qty:</label>
+                            <input type="number" id="qty-{{ item.product.id }}" name="quantity"
+                                value="{{ item.quantity }}" min="1" class="form-input" style="width: 80px;">
+                            <button type="submit" class="btn btn-outline btn-sm">Update</button>
+                        </form>
+
+                        <form method="POST" action="{% url 'cart' %}"
+                            onsubmit="return confirm('Remove this item from cart?');">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="remove">
+                            <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                            <button type="submit" class="btn btn-outline btn-sm"
+                                style="color: var(--error);">Remove</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Subtotal -->
+                <div style="text-align: right;">
+                    <div style="color: var(--medium-grey); font-size: var(--text-sm); margin-bottom: var(--space-2);">
+                        Subtotal</div>
+                    <div style="font-size: var(--text-2xl); font-weight: var(--font-weight-bold);">
+                        KES {{ item.subtotal }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Cart Summary -->
+        <div>
+            <div
+                style="background: var(--off-white); border-radius: var(--radius-lg); padding: var(--space-6); position: sticky; top: 100px;">
+                <h3 style="margin-bottom: var(--space-6);">Order Summary</h3>
+
+                <div style="margin-bottom: var(--space-4);">
+                    <div
+                        style="display: flex; justify-content: space-between; margin-bottom: var(--space-2); color: var(--dark-grey);">
+                        <span>Items ({{ cart_items|length }})</span>
+                        <span>KES {{ total }}</span>
+                    </div>
+                </div>
+
+                <div
+                    style="border-top: 2px solid var(--light-grey); padding-top: var(--space-4); margin-bottom: var(--space-6);">
+                    <div
+                        style="display: flex; justify-content: space-between; font-size: var(--text-2xl); font-weight: var(--font-weight-bold);">
+                        <span>Total</span>
+                        <span style="color: var(--primary-blue);">KES {{ total }}</span>
+                    </div>
+                </div>
+
+                <a href="{% url 'checkout' %}" class="btn btn-primary btn-lg"
+                    style="width: 100%; margin-bottom: var(--space-3);">
+                    Proceed to Checkout
+                </a>
+
+                <a href="{% url 'shop' %}" class="btn btn-outline" style="width: 100%;">
+                    Continue Shopping
+                </a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div
+        style="text-align: center; padding: var(--space-20); background: var(--off-white); border-radius: var(--radius-xl);">
+        <div style="font-size: 80px; margin-bottom: var(--space-4);">🛒</div>
+        <h2 style="margin-bottom: var(--space-4);">Your cart is empty</h2>
+        <p style="color: var(--medium-grey); margin-bottom: var(--space-8);">
+            Browse our products and add items to your cart
+        </p>
+        <a href="{% url 'shop' %}" class="btn btn-primary btn-lg">Start Shopping</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

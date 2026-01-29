@@ -1,0 +1,45 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}Login - Boomerang Digital Solutions{% endblock %}
+
+{% block content %}
+<div class="container py-12">
+    <div
+        style="max-width: 480px; margin: 0 auto; background: var(--white); padding: var(--space-8); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); border: 1px solid var(--light-grey);">
+        <h1 class="text-center mb-6">Welcome Back</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg" role="alert">
+                <p>Invalid username or password.</p>
+            </div>
+            {% endif %}
+
+            <div class="mb-4">
+                <label for="id_username" class="block mb-2 font-medium" style="color: var(--charcoal);">Username</label>
+                <input type="text" name="username" class="form-input" required id="id_username"
+                    style="width: 100%; padding: 12px; border: 1px solid var(--border-grey); border-radius: var(--radius-md);">
+            </div>
+
+            <div class="mb-6">
+                <label for="id_password" class="block mb-2 font-medium" style="color: var(--charcoal);">Password</label>
+                <input type="password" name="password" class="form-input" required id="id_password"
+                    style="width: 100%; padding: 12px; border: 1px solid var(--border-grey); border-radius: var(--radius-md);">
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full"
+                style="width: 100%; padding: 12px; justify-content: center;">
+                Log In
+            </button>
+        </form>
+
+        <p class="text-center mt-6 text-sm" style="color: var(--medium-grey);">
+            Don't have an account? <a href="{% url 'register' %}"
+                style="color: var(--primary-blue); font-weight: 600;">Sign up</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

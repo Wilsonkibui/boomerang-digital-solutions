@@ -1,0 +1,144 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }} - Boomerang Digital Solutions{% endblock %}
+
+{% block content %}
+<div class="container py-8">
+    <!-- Breadcrumbs -->
+    <nav style="color: var(--medium-grey); margin-bottom: var(--space-8);">
+        <a href="{% url 'home' %}" style="color: var(--medium-grey);">Home</a> /
+        {% if product.category %}
+        <a href="{% url 'shop' %}?category={{ product.category.slug }}" style="color: var(--medium-grey);">
+            {{ product.category.name }}
+        </a> /
+        {% endif %}
+        <span style="color: var(--charcoal);">{{ product.name }}</span>
+    </nav>
+
+    <!-- Product Detail -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); margin-bottom: var(--space-16);">
+        <!-- Image Gallery -->
+        <div>
+            <div
+                style="background: var(--off-white); border-radius: var(--radius-xl); padding: var(--space-8); margin-bottom: var(--space-4);">
+                {% if product.image %}
+                <img id="mainImage" src="{{ product.image.url }}" alt="{{ product.name }}"
+                    style="width: 100%; border-radius: var(--radius-lg);">
+                {% else %}
+                <img src="{% static 'store/assets/images/placeholder.png' %}" alt="No image"
+                    style="width: 100%; border-radius: var(--radius-lg);">
+                {% endif %}
+            </div>
+
+            <!-- Thumbnail placeholder if we had multiple images -->
+        </div>
+
+        <!-- Product Info -->
+        <div>
+            <div style="margin-bottom: var(--space-2);">
+                <span class="product-badge badge-in-stock">{{ product.get_stock_status_display }}</span>
+            </div>
+
+            <h1 style="margin-bottom: var(--space-4);">{{ product.name }}</h1>
+
+            {% if product.brand %}
+            <div style="margin-bottom: var(--space-6);">
+                <span style="color: var(--medium-grey);">Brand:</span>
+                <a href="{% url 'shop' %}?brand={{ product.brand.slug }}"
+                    style="color: var(--primary-blue); font-weight: var(--font-weight-medium);">
+                    {{ product.brand.name }}
+                </a>
+            </div>
+            {% endif %}
+
+            <div
+                style="font-size: var(--text-4xl); font-weight: var(--font-weight-bold); color: var(--primary-blue); margin-bottom: var(--space-8);">
+                KES {{ product.price }}
+            </div>
+
+            {% if product.description %}
+            <div
+                style="margin-bottom: var(--space-8); padding: var(--space-6); background: var(--off-white); border-radius: var(--radius-lg);">
+                <h3 style="margin-bottom: var(--space-3);">Description</h3>
+                <p style="color: var(--dark-grey); line-height: 1.8;">{{ product.description|linebreaks }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Add to Cart -->
+            {% if product.stock_status == 'in_stock' %}
+            <form method="POST" action="{% url 'cart' %}" style="margin-bottom: var(--space-6);">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{ product.id }}">
+                <input type="hidden" name="action" value="add">
+
+                <div style="display: flex; gap: var(--space-4); margin-bottom: var(--space-4);">
+                    <div>
+                        <label for="quantity"
+                            style="display: block; margin-bottom: var(--space-2); font-weight: var(--font-weight-medium);">Quantity</label>
+                        <input type="number" id="quantity" name="quantity" value="1" min="1" class="form-input"
+                            style="width: 100px;">
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: var(--space-4);">
+                    <button type="submit" class="btn btn-primary btn-lg" style="flex: 1;">
+                        🛒 Add to Cart
+                    </button>
+                    <a href="https://wa.me/254701511606?text=Hi!%20I'm%20interested%20in:%20{{ product.name|urlencode }}"
+                        class="btn btn-accent btn-lg" style="flex: 1;" target="_blank">
+                        💬 Buy via WhatsApp
+                    </a>
+                </div>
+            </form>
+            {% else %}
+            <div class="alert alert-warning">
+                This product is currently out of stock. Contact us on WhatsApp for availability.
+            </div>
+            <a href="https://wa.me/254701511606?text=Hi!%20When%20will%20{{ product.name|urlencode }}%20be%20back%20in%20stock?"
+                class="btn btn-secondary btn-lg" target="_blank" style="width: 100%;">
+                💬 Ask About Availability
+            </a>
+            {% endif %}
+
+            <!-- Specifications -->
+            {% if product.specifications %}
+            <div style="margin-top: var(--space-8);">
+                <h3 style="margin-bottom: var(--space-4);">Specifications</h3>
+                <div class="specs-table">
+                    {{ product.specifications|linebreaks }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Related Products -->
+    {% if related_products %}
+    <div style="margin-top: var(--space-20);">
+        <h2 style="margin-bottom: var(--space-8);">You May Also Like</h2>
+
+        <div class="grid grid-cols-4 gap-6">
+            {% for related in related_products %}
+            <a href="{% url 'product_detail' related.slug %}" class="product-card">
+                <div class="product-card-image">
+                    {% if related.image %}
+                    <img src="{{ related.image.url }}" alt="{{ related.name }}">
+                    {% else %}
+                    <img src="{% static 'store/assets/images/placeholder.png' %}" alt="No image">
+                    {% endif %}
+                    <span class="product-badge badge-in-stock">{{ related.get_stock_status_display }}</span>
+                </div>
+                <div class="product-card-content">
+                    <div class="product-category">{{ related.category.name }}</div>
+                    <h3 class="product-name">{{ related.name }}</h3>
+                    <div class="product-brand">{{ related.brand.name }}</div>
+                    <div class="product-price">KES {{ related.price }}</div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

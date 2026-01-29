@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .order-details {
+            margin: 20px 0;
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .total {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        .footer {
+            font-size: 0.8em;
+            text-align: center;
+            color: #777;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Order Received!</h1>
+            <p>Order #{{ order.order_number }}</p>
+        </div>
+
+        <p>Hi {{ order.customer_name }},</p>
+        <p>Thank you for shopping with Boomerang Digital Solutions. We have received your order and will contact you
+            shortly to confirm delivery.</p>
+
+        <div class="order-details">
+            <h3>Order Summary</h3>
+            {% for item in order.items.all %}
+            <div class="item">
+                <span>{{ item.product_name }} (x{{ item.quantity }})</span>
+                <span>KES {{ item.subtotal }}</span>
+            </div>
+            {% endfor %}
+
+            <div class="total">
+                Total: KES {{ order.total_amount }}
+            </div>
+        </div>
+
+        <p><strong>Payment Method:</strong> {{ order.get_payment_method_display }}</p>
+        <p><strong>Delivery Address:</strong> {{ order.customer_address }}</p>
+
+        <div class="footer">
+            <p>Boomerang Digital Solutions<br>Nairobi, Kenya<br>+254 701 511 606</p>
+        </div>
+    </div>
+</body>
+
+</html>
