@@ -5,4 +5,6 @@ set -o errexit
 pip install -r requirements.txt
 
 python manage.py collectstatic --no-input
-python manage.py migrate
+
+# Skip migrations for now to test if database connection is the issue
+# python manage.py migrate
